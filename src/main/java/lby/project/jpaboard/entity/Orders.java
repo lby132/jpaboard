@@ -1,5 +1,6 @@
-package lby.project.entity;
+package lby.project.jpaboard.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,14 +12,13 @@ import java.util.Date;
 
 @Entity
 @Getter
-@Table(name = "orders")
 @NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "orders")
 public class Orders {
 
     @Id @GeneratedValue
     private Long orderNum;
     private String ordersUser;
     private Date orderDate;
-
-
 }
