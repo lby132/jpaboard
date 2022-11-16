@@ -26,13 +26,13 @@ public class ProductListController {
     private final ModelMapper modelMapper;
 
     @GetMapping("/getProductList")
-    public List<ProductDto> getProduct() {
+    public List<ProductDto> getProducts() {
         return productService.getProductList();
     }
 
-    @PostMapping("/insertProduct")
-    public void insertProduct(Product product) {
-        productService.insertProduct(product);
+    @PostMapping("/saveProduct")
+    public void saveProduct(ProductDto productDto) {
+        productService.saveProduct(productDto);
     }
 
     @GetMapping("/getProductOne")

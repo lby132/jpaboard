@@ -28,14 +28,20 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void insertProduct(Product productDto) {
-        productRepository.save(productDto);
+    public void saveProduct(ProductDto productDto) {
+        final Product product = Product.builder()
+                .product_name(productDto.getProductName())
+                .product_cnt(productDto.getProductCnt())
+                .build();
+
+        productRepository.save(product);
     }
 
     @Override
     public ProductDto getProductOne(Long prodId) {
-        final Product one = productRepository.findOne(prodId);
-        return modelMapper.map(one, ProductDto.class);
+        final Product product = productRepository.findById(prodId)
+                .orElseThrow(IllegalArgumentException::new);
+        return modelMapper.map(product, ProductDto.class);
     }
 
 
