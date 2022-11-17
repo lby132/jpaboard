@@ -7,23 +7,18 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Slf4j
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/product")
 public class ProductListController {
 
     @Autowired
     private final ProductService productService;
-
-    @Autowired
-    private final ModelMapper modelMapper;
 
     @GetMapping("/getProductList")
     public List<ProductDto> getProducts() {
@@ -31,12 +26,12 @@ public class ProductListController {
     }
 
     @PostMapping("/saveProduct")
-    public void saveProduct(ProductDto productDto) {
+    public void saveProduct(@RequestBody ProductDto productDto) {
         productService.saveProduct(productDto);
     }
 
-    @GetMapping("/getProductOne")
-    public ProductDto getProductOne(@RequestParam("productId") Long prodId) {
+    @GetMapping("/getProductOne/{productId}")
+    public ProductDto getProductOne(@PathVariable("productId") Long prodId) {
          return productService.getProductOne(prodId);
     }
 }

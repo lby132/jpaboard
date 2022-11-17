@@ -14,14 +14,17 @@ import javax.persistence.*;
 public class Product {
 
     @Id
+    @Column(name = "product_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long product_id;
-    private String product_name;
-    private int product_cnt;
+    private Long productId;
+    @Column(name = "product_name")
+    private String productName;
+    @Column(name = "product_cnt")
+    private int productCnt;
 
     @Builder
-    public Product(String product_name, int product_cnt) {
-        this.product_name = product_name;
-        this.product_cnt = product_cnt;
+    public Product(String productName, int productCnt) {
+        this.productName = productName;
+        this.productCnt = productCnt;
     }
 }

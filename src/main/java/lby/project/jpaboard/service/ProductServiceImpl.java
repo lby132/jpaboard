@@ -4,15 +4,19 @@ import lby.project.jpaboard.dto.ProductDto;
 import lby.project.jpaboard.entity.Product;
 import lby.project.jpaboard.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
@@ -28,10 +32,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public void saveProduct(ProductDto productDto) {
         final Product product = Product.builder()
-                .product_name(productDto.getProductName())
-                .product_cnt(productDto.getProductCnt())
+                .productName(productDto.getProductName())
+                .productCnt(productDto.getProductCnt())
                 .build();
 
         productRepository.save(product);

@@ -3,6 +3,7 @@
 <head>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/themes/smoothness/jquery-ui.css}">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 </head>
 <body>
 <br>
@@ -21,4 +22,20 @@
     </tr>
 </table>
 </body>
+<script th:inline="javascript">
+    $(document).ready(function(){
+        api_url = "/product/getProductList";
+
+        $.ajax({
+            url: api_url,
+            type: "get",
+            success: function(data) {
+                console.log(data);
+            },
+            error: function() {
+                console.log('망함');
+            }
+        });
+    });
+</script>
 </html>
