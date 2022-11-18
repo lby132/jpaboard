@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/themes/smoothness/jquery-ui.css}">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+</head>
+<body>
+<br>
+<h3>상품목록</h3>
+<br>
+<table border="1" class="table table-striped" id="itemList">
+    <colgroup>
+        <col width="50">
+        <col width="100">
+        <col width="300">
+        <col width="300">
+    </colgroup>
+    <tr>
+        <th>NO</th>
+        <th>NAME</th>
+        <th>COUNT</th>
+        <th>ORDER</th>
+    </tr>
+</table>
+</body>
+<script th:inline="javascript">
+    $(document).ready(function(){
+        api_url = "/product/getProductList";
+
+        $.ajax({
+            url: api_url,
+            type: "get"
+        }).done(function (data) {
+        let result = data.result;
+        if(result === "OK") {
+            let html = '';
+            const prodList = data.productList;
+            for(let i=0; i<prodList.length; i++) {
+                html += '<tr>';
+                html += '<td>' + prodList[i].productId + '</td>';
+                html += '<td>' + prodList[i].productName + '</td>';
+                html += '<td>' + prodList[i].productCnt + '</td>';
+                html += '<td><button th:onclick="order(\''+prodList[i].productId+'\')"></td>'
+                html += '</tr>';
+                html += '</br>';
+            }
+            $("#itemList").append(html);
+        } else {
+            alert(result);
+        }
+        })
+        .fail(function(jqXHR) {
+            console.log(jqXHR);
+        });
+   });
+
+</script>
+</html>

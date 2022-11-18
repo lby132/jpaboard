@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Getter
@@ -17,14 +19,26 @@ public class Product {
     @Column(name = "product_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_num")
+    private Orders orders;
+
     @Column(name = "product_name")
+    @NotBlank(message = "상품 이름은 필수 입니다.")
     private String productName;
+
     @Column(name = "product_cnt")
     private int productCnt;
 
+    @Column(name = "price")
+    @NotNull(message = "가격은 필수입니다.")
+    private int price;
+
     @Builder
-    public Product(String productName, int productCnt) {
+    public Product(String productName, int productCnt, int price) {
         this.productName = productName;
         this.productCnt = productCnt;
+        this.price = price;
     }
 }

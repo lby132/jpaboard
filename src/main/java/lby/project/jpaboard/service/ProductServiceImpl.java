@@ -37,6 +37,7 @@ public class ProductServiceImpl implements ProductService {
         final Product product = Product.builder()
                 .productName(productDto.getProductName())
                 .productCnt(productDto.getProductCnt())
+                .price(productDto.getPrice())
                 .build();
 
         productRepository.save(product);

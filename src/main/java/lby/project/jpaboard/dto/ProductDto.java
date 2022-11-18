@@ -12,11 +12,14 @@ import lombok.NoArgsConstructor;
 public class ProductDto {
 
     private Long productId;
+    private Long orderNum;
     private String productName;
     private int productCnt;
+    private int price;
 
-    public ProductDto(String productName, int productCnt) {
+    public ProductDto(String productName, int productCnt, int price) {
         this.productName = productName;
         this.productCnt = productCnt;
+        this.price = price;
     }
 }

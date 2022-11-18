@@ -38,6 +38,9 @@ dependencies {
 	implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.1.0'
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter'
 	testImplementation "org.springframework.restdocs:spring-restdocs-mockmvc:${asciidocVersion}"
+	// Map객체 null체크
+	implementation group: 'org.wso2.orbit.org.apache.commons', name: 'commons-collections4', version: '4.4.wso2v1'
+
 
 }
 
