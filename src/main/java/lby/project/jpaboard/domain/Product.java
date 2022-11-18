@@ -1,6 +1,5 @@
-package lby.project.jpaboard.entity;
+package lby.project.jpaboard.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

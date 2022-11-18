@@ -5,7 +5,7 @@
     <link rel="stylesheet" th:href="@{/themes/smoothness/jquery-ui.css}">
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 </head>
-<body>
+<body onload="initItemList()">
 <br>
 <h3>상품목록</h3>
 <br>
@@ -25,35 +25,42 @@
 </table>
 </body>
 <script th:inline="javascript">
-    $(document).ready(function(){
-        api_url = "/product/getProductList";
 
-        $.ajax({
-            url: api_url,
-            type: "get"
+   function initItemList() {
+        let api_url = "/product/getProductList";
+
+       $.ajax({
+        url: api_url,
+        type: "get"
         }).done(function (data) {
-        let result = data.result;
-        if(result === "OK") {
-            let html = '';
-            const prodList = data.productList;
-            for(let i=0; i<prodList.length; i++) {
-                html += '<tr>';
-                html += '<td>' + prodList[i].productId + '</td>';
-                html += '<td>' + prodList[i].productName + '</td>';
-                html += '<td>' + prodList[i].productCnt + '</td>';
-                html += '<td><button th:onclick="order(\''+prodList[i].productId+'\')"></td>'
-                html += '</tr>';
-                html += '</br>';
-            }
-            $("#itemList").append(html);
-        } else {
-            alert(result);
-        }
-        })
-        .fail(function(jqXHR) {
-            console.log(jqXHR);
-        });
-   });
 
+            let result = data.result;
+            if(result === "OK") {
+                let html = '';
+                const prodList = data.productList;
+                for(let i=0; i<prodList.length; i++) {
+                    html += '<tr>';
+                    html += '<td>' + prodList[i].productId + '</td>';
+                    html += '<td>' + prodList[i].productName + '</td>';
+                    html += '<td>' + prodList[i].productCnt + '</td>';
+                    html += '<td><a href="javascript:;" onclick="order(\''+prodList[i].productId+'\')">주문하기에 등록</a></td>';
+                    html += '</tr>';
+                    html += '</br>';
+            }
+                $("#itemList").append(html);
+
+            } else {
+                alert(result);
+            }
+
+        }).fail(function(jqXHR) {
+          console.log(jqXHR);
+      });
+   }
+
+   function order(id) {
+
+
+   }
 </script>
 </html>

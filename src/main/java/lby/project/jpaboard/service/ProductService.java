@@ -1,7 +1,6 @@
 package lby.project.jpaboard.service;
 
 import lby.project.jpaboard.dto.ProductDto;
-import lby.project.jpaboard.entity.Product;
 
 import java.util.List;
 

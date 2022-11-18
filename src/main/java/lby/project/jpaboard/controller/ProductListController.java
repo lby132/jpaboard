@@ -45,4 +45,5 @@ public class ProductListController {
     public ProductDto getProductOne(@PathVariable("productId") Long prodId) {
          return productService.getProductOne(prodId);
     }
+
 }

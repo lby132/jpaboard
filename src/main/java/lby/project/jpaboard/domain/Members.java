@@ -1,4 +1,4 @@
-package lby.project.jpaboard.entity;
+package lby.project.jpaboard.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,17 +8,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.Date;
 
 @Entity
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "orders")
-public class Orders {
+@Table(name = "members")
+public class Members {
 
     @Id @GeneratedValue
-    private Long orderNum;
-    private String ordersUser;
-    private Date orderDate;
+    private Long memberId;
+    private String userName;
+    private String password;
 }

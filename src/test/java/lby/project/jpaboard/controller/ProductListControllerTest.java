@@ -1,9 +1,8 @@
 package lby.project.jpaboard.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lby.project.jpaboard.dto.ProductDto;
-import lby.project.jpaboard.entity.Product;
+import lby.project.jpaboard.domain.Product;
 import lby.project.jpaboard.repository.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -43,13 +41,13 @@ class ProductListControllerTest {
     }
 
     @Test
-    @DisplayName("상품 목록 조회")
-    void findAll() throws Exception {
+    @DisplayName("상품 저장, 목록 조회")
+    void saveFindAll() throws Exception {
         // given
         final ProductDto request = ProductDto.builder()
-                .productId(1L)
-                .productName("망고")
+                .productName("키위")
                 .productCnt(2)
+                .price(8000)
                 .build();
 
         final String json = objectMapper.writeValueAsString(request);

@@ -6,8 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
 public class ProductDto {
 
@@ -17,7 +15,9 @@ public class ProductDto {
     private int productCnt;
     private int price;
 
-    public ProductDto(String productName, int productCnt, int price) {
+    @Builder
+    public ProductDto(Long productId, String productName, int productCnt, int price) {
+        this.productId = productId;
         this.productName = productName;
         this.productCnt = productCnt;
         this.price = price;
