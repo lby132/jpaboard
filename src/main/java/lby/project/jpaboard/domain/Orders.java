@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -17,8 +14,13 @@ import java.util.Date;
 @Table(name = "orders")
 public class Orders {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "order_num")
     private Long orderNum;
-    private String ordersUser;
+
+    @Column(name = "order_user")
+    private String orderUser;
+
+    @Column(name = "order_date")
     private Date orderDate;
 }

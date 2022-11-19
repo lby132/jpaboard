@@ -1,10 +1,10 @@
 package lby.project.jpaboard.service;
 
-import lby.project.jpaboard.domain.Orders;
+import lby.project.jpaboard.dto.OrderDto;
 
 import java.util.List;
 
 public interface OrderService {
 
-    List<Orders> getOrderList();
+    List<OrderDto> getOrderList();
 }

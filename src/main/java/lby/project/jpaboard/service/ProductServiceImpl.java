@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
     @Autowired
     private final ModelMapper modelMapper;
