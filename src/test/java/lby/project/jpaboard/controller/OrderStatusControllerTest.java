@@ -7,6 +7,7 @@ import lby.project.jpaboard.dto.OrderDto;
 import lby.project.jpaboard.repository.OrderRepository;
 import lby.project.jpaboard.repository.ProductRepository;
 import lby.project.jpaboard.service.OrderService;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,8 +17,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,6 +25,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@Slf4j
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
@@ -45,9 +45,6 @@ class OrderStatusControllerTest {
 
     @Autowired
     private ObjectMapper objectMapper;
-
-    @PersistenceContext
-    EntityManager em;
 
     @BeforeEach
     void beforeEach() {

@@ -1,8 +1,10 @@
 package lby.project.jpaboard.service.impl;
 
 import lby.project.jpaboard.domain.Orders;
+import lby.project.jpaboard.domain.Product;
 import lby.project.jpaboard.dto.OrderDto;
 import lby.project.jpaboard.repository.OrderRepository;
+import lby.project.jpaboard.repository.ProductRepository;
 import lby.project.jpaboard.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +28,9 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
 
     @Autowired
+    private final ProductRepository productRepository;
+
+    @Autowired
     private final ModelMapper modelMapper;
 
     @Override
@@ -42,8 +47,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void regOrder(OrderDto orderDto) {
+     //   final Product product = productRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("없는 상품번호 입니다."));
+
+        final LocalDateTime now = LocalDateTime.now();
+
         final Orders order = Orders.builder()
-                .orderDate(orderDto.getOrderDate())
+                .orderDate(now)
                 .orderUser(orderDto.getOrdersUser())
                 .build();
 

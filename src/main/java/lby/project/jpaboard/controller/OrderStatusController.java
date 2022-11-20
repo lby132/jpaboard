@@ -1,13 +1,10 @@
 package lby.project.jpaboard.controller;
 
-import lby.project.jpaboard.domain.Orders;
-import lby.project.jpaboard.domain.Product;
 import lby.project.jpaboard.dto.OrderDto;
 import lby.project.jpaboard.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.ListUtils;
 
@@ -56,7 +53,8 @@ public class OrderStatusController {
     }
 
     @PostMapping("/regOrder")
-    public void regOrder(OrderDto orderDto) {
+    public void regOrder(@RequestBody OrderDto orderDto) {
+
         orderService.regOrder(orderDto);
     }
 }
