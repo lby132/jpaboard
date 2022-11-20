@@ -1,8 +1,9 @@
-package lby.project.jpaboard.service;
+package lby.project.jpaboard.service.impl;
 
 import lby.project.jpaboard.dto.ProductDto;
 import lby.project.jpaboard.domain.Product;
 import lby.project.jpaboard.repository.ProductRepository;
+import lby.project.jpaboard.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -16,7 +17,6 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
@@ -32,7 +32,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    @Transactional
     public void saveProduct(ProductDto productDto) {
         final Product product = Product.builder()
                 .productName(productDto.getProductName())
@@ -46,7 +45,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDto getProductOne(Long prodId) {
         final Product product = productRepository.findById(prodId)
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new IllegalArgumentException("상품 아이디가 없습니다."));
         return modelMapper.map(product, ProductDto.class);
     }
 

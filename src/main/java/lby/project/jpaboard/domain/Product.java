@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Getter
@@ -33,6 +34,10 @@ public class Product {
     @Column(name = "price")
     @NotNull(message = "가격은 필수입니다.")
     private int price;
+
+    public void setOrders(Orders orders) {
+        orders.getProducts().add(this);
+    }
 
     @Builder
     public Product(String productName, int productCnt, int price) {

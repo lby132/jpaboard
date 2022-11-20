@@ -7,4 +7,6 @@ import java.util.List;
 public interface OrderService {
 
     List<OrderDto> getOrderList();
+
+    void regOrder(OrderDto orderDto);
 }

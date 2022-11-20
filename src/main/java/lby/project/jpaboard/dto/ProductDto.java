@@ -16,8 +16,7 @@ public class ProductDto {
     private int price;
 
     @Builder
-    public ProductDto(Long productId, String productName, int productCnt, int price) {
-        this.productId = productId;
+    public ProductDto(String productName, int productCnt, int price) {
         this.productName = productName;
         this.productCnt = productCnt;
         this.price = price;
