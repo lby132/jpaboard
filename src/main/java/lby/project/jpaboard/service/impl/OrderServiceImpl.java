@@ -35,9 +35,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public OrderDto getOrderItem(Long orderNum) {
+        final Orders orders = orderRepository.findById(orderNum).orElseThrow(() -> new IllegalArgumentException("해당 상품의 주문이 없습니다."));
+        return modelMapper.map(orders, OrderDto.class);
+    }
+
+    @Override
     public void regOrder(OrderDto orderDto) {
         final Orders order = Orders.builder()
-                .orderNum(orderDto.getOrderNum())
                 .orderDate(orderDto.getOrderDate())
                 .orderUser(orderDto.getOrdersUser())
                 .build();

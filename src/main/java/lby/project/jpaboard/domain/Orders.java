@@ -6,10 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -20,7 +18,7 @@ import java.util.List;
 public class Orders {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "order_num")
     private Long orderNum;
 
@@ -34,8 +32,7 @@ public class Orders {
     private LocalDateTime orderDate;
 
     @Builder
-    public Orders(Long orderNum, String orderUser, LocalDateTime orderDate) {
-        this.orderNum = orderNum;
+    public Orders(String orderUser, LocalDateTime orderDate) {
         this.orderUser = orderUser;
         this.orderDate = orderDate;
     }

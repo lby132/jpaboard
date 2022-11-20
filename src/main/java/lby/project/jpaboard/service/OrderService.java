@@ -8,5 +8,7 @@ public interface OrderService {
 
     List<OrderDto> getOrderList();
 
+    OrderDto getOrderItem(Long orderNum);
+
     void regOrder(OrderDto orderDto);
 }
