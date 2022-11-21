@@ -37,6 +37,7 @@ public class ProductServiceImpl implements ProductService {
                 .productName(productDto.getProductName())
                 .productCnt(productDto.getProductCnt())
                 .price(productDto.getPrice())
+                //.orders(productDto.getOrderNum())
                 .build();
 
         productRepository.save(product);

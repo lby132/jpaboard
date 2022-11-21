@@ -43,7 +43,7 @@
                     html += '<td>' + prodList[i].productId + '</td>';
                     html += '<td>' + prodList[i].productName + '</td>';
                     html += '<td>' + prodList[i].productCnt + '</td>';
-                    html += '<td><a href="javascript:;" onclick="order(\''+prodList[i].productId+'\')">주문하기에 등록</a></td>';
+                    html += '<td><a href="javascript:;" onclick="orderReg(\''+prodList[i].productId+'\')">주문하기에 등록</a></td>';
                     html += '</tr>';
                     html += '</br>';
             }
@@ -59,7 +59,19 @@
    }
 
    function orderReg(id) {
-      location.href = "/order/regOrder/" + id;
+      let api_url = "/order/regOrder";
+
+      $.ajax({
+         url: api_url,
+         type: "post",
+         data: JSON.stringify({ordersUser:'member1'}),
+         dataType: "json",
+         contentType: "application/json"
+      }).done(function (data) {
+          alert('등록되었습니다.');
+      }).fail(function (jqXHR) {
+         console.log(jqXHR);
+      });
    }
 
 <!--/*

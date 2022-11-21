@@ -54,7 +54,6 @@ public class OrderStatusController {
 
     @PostMapping("/regOrder")
     public void regOrder(@RequestBody OrderDto orderDto) {
-
         orderService.regOrder(orderDto);
     }
 }
