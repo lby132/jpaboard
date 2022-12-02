@@ -1,4 +1,4 @@
-package lby.project.jpaboard.controller;
+package lby.project.jpaboard.api;
 
 import lby.project.jpaboard.dto.ProductDto;
 import lby.project.jpaboard.service.ProductService;
@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/product")
-public class ProductListController {
+public class ApiProductListController {
 
     @Autowired
     private final ProductService productService;

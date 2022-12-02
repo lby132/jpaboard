@@ -1,6 +1,7 @@
-package lby.project.jpaboard.controller;
+package lby.project.jpaboard.api;
 
 import lby.project.jpaboard.dto.OrderDto;
+import lby.project.jpaboard.dto.OrderInfo;
 import lby.project.jpaboard.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +17,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/order")
-public class OrderStatusController {
+public class ApiOrderStatusController {
 
     @Autowired
     private final OrderService orderService;
@@ -53,7 +54,7 @@ public class OrderStatusController {
     }
 
     @PostMapping("/regOrder")
-    public void regOrder(@RequestBody OrderDto orderDto) {
-        orderService.regOrder(orderDto);
+    public void regOrder(@RequestBody OrderInfo orderInfo) {
+        orderService.regOrder(orderInfo.getProductId(), orderInfo.getMemberId(), orderInfo.getCount());
     }
 }

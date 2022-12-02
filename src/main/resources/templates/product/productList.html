@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/themes/smoothness/jquery-ui.css}">
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-</head>
+<head th:replace="fragments/header :: header" />
 <body onload="initItemList()">
 <br>
 <h3>상품목록</h3>
@@ -43,7 +39,7 @@
                     html += '<td>' + prodList[i].productId + '</td>';
                     html += '<td>' + prodList[i].productName + '</td>';
                     html += '<td>' + prodList[i].productCnt + '</td>';
-                    html += '<td><a href="javascript:;" onclick="orderReg(\''+prodList[i].productId+'\')">주문하기에 등록</a></td>';
+                    html += '<td><a href="javascript:;" onclick="orderReg()">주문하기에 등록</a></td>';
                     html += '</tr>';
                     html += '</br>';
             }
@@ -61,16 +57,13 @@
    function orderReg(id) {
       let api_url = "/order/regOrder";
 
-      $.ajax({
-         url: api_url,
-         type: "post",
-         data: JSON.stringify({ordersUser:'member1'}),
-         dataType: "json",
-         contentType: "application/json"
-      }).done(function (data) {
-          alert('등록되었습니다.');
-      }).fail(function (jqXHR) {
-         console.log(jqXHR);
+       $.ajax({
+        url: api_url,
+        type: "get"
+         }).done(function (data) {
+
+        }).fail(function(jqXHR) {
+          console.log(jqXHR);
       });
    }
 

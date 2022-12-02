@@ -1,9 +1,8 @@
 package lby.project.jpaboard.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lby.project.jpaboard.domain.Orders;
-import lby.project.jpaboard.dto.ProductDto;
+import lby.project.jpaboard.domain.Order;
+import lby.project.jpaboard.domain.OrderStatus;
 import lby.project.jpaboard.domain.Product;
 import lby.project.jpaboard.repository.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -12,11 +11,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
+import static lby.project.jpaboard.domain.OrderStatus.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -50,7 +51,9 @@ class ProductListControllerTest {
     @DisplayName("상품 저장, 목록 조회")
     void saveFindAll() throws Exception {
         // given
-        final ProductDto request = ProductDto.builder()
+        final LocalDateTime now = LocalDateTime.now();
+        final Order orders = new Order(now, CANCEL);
+        final Product request = Product.builder()
                 .productName("키위")
                 .productCnt(2)
                 .price(8000)
@@ -84,10 +87,11 @@ class ProductListControllerTest {
 
         final String json = objectMapper.writeValueAsString(item);
 
-        mockMvc.perform(get("/product/getProductOne/{productId}", item.getProductId())
-                        .contentType(APPLICATION_JSON))
+        mockMvc.perform(get("/product/getProductOne/{productId}", item.getId())
+                        .contentType(APPLICATION_JSON)
+                        .content(json))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.productId").value(item.getProductId()))
+                .andExpect(jsonPath("$.productId").value(item.getId()))
                 .andExpect(jsonPath("$.productName").value(item.getProductName()))
                 .andExpect(jsonPath("$.productCnt").value(item.getProductCnt()))
                 .andExpect(jsonPath("$.price").value(item.getPrice()))

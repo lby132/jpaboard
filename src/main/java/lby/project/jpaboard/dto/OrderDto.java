@@ -1,5 +1,7 @@
 package lby.project.jpaboard.dto;
 
+import lby.project.jpaboard.domain.Member;
+import lby.project.jpaboard.domain.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,13 +16,14 @@ import java.util.Date;
 public class OrderDto {
 
     private Long orderNum;
-    private String ordersUser;
     private LocalDateTime orderDate;
+    private Member member;
+    private OrderStatus status;
 
     @Builder
-    public OrderDto(Long orderNum, String ordersUser, LocalDateTime orderDate) {
-        this.orderNum = orderNum;
-        this.ordersUser = ordersUser;
+    public OrderDto(LocalDateTime orderDate, Member member, OrderStatus status) {
         this.orderDate = orderDate;
+        this.member = member;
+        this.status = status;
     }
 }
