@@ -2,15 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
 <body>
-<div class="container">
-    <form role="form" action="/order" method="post">
+<div class="wrapper">
+    <form role="form" action="/order/orderReg" method="post">
         <div class="form-group">
             <label for="member">주문회원</label>
             <select name="memberId" id="member" class="form-control">
                 <option value="">회원선택</option>
                 <option th:each="member : ${members}"
-                        th:value="${member.id}"
-                        th:text="${member.name}" />
+                        th:value="${member.memberId}"
+                        th:text="${member.username}" />
             </select>
         </div>
         <div class="form-group">
@@ -19,7 +19,7 @@
                 <option value="">상품선택</option>
                 <option th:each="item : ${items}"
                         th:value="${item.id}"
-                        th:text="${item.name}" />
+                        th:text="${item.productName}" />
             </select>
         </div>
         <div class="form-group">

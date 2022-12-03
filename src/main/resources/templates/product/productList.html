@@ -5,71 +5,37 @@
 <br>
 <h3>상품목록</h3>
 <br>
-<table border="1" class="table table-striped" id="itemList">
-    <colgroup>
-        <col width="50">
-        <col width="100">
-        <col width="300">
-        <col width="300">
-    </colgroup>
-    <tr>
-        <th>NO</th>
-        <th>NAME</th>
-        <th>COUNT</th>
-        <th>ORDER</th>
-    </tr>
-</table>
+<div style="float: right;">
+    <button type="button" class="btn btn-primary" onclick="orderReg()">주문하기에 등록</button>
+</div>
+    <table border="1" class="table table-striped" id="itemList">
+        <colgroup>
+            <col width="50">
+            <col width="100">
+            <col width="300">
+            <col width="300">
+        </colgroup>
+        <thead>
+        <tr>
+            <th>상품번호</th>
+            <th>상품이름</th>
+            <th>상품개수</th>
+            <th>상품가격</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${productList}">
+            <td th:text="${item.id}"></td>
+            <td th:text="${item.productName}"></td>
+            <td th:text="${item.price}"></td>
+            <td th:text="${item.productCnt}"></td>
+        </tr>
+        </tbody>
+    </table>
 </body>
 <script th:inline="javascript">
-
-   function initItemList() {
-        let api_url = "/product/getProductList";
-
-       $.ajax({
-        url: api_url,
-        type: "get"
-        }).done(function (data) {
-
-            let result = data.result;
-            if(result === "OK") {
-                let html = '';
-                const prodList = data.productList;
-                for(let i=0; i<prodList.length; i++) {
-                    html += '<tr>';
-                    html += '<td>' + prodList[i].productId + '</td>';
-                    html += '<td>' + prodList[i].productName + '</td>';
-                    html += '<td>' + prodList[i].productCnt + '</td>';
-                    html += '<td><a href="javascript:;" onclick="orderReg()">주문하기에 등록</a></td>';
-                    html += '</tr>';
-                    html += '</br>';
-            }
-                $("#itemList").append(html);
-
-            } else {
-                alert(result);
-            }
-
-        }).fail(function(jqXHR) {
-          console.log(jqXHR);
-      });
-   }
-
    function orderReg(id) {
-      let api_url = "/order/regOrder";
-
-       $.ajax({
-        url: api_url,
-        type: "get"
-         }).done(function (data) {
-
-        }).fail(function(jqXHR) {
-          console.log(jqXHR);
-      });
+      location.href = "/order/orderReg";
    }
-
-<!--/*
-   function order(id) {
-      location.href = "/order/getOrderList/" + id;
-   } */-->
 </script>
 </html>

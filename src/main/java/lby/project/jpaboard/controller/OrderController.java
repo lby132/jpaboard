@@ -1,21 +1,24 @@
 package lby.project.jpaboard.controller;
 
 import lby.project.jpaboard.domain.Member;
+import lby.project.jpaboard.domain.Order;
 import lby.project.jpaboard.domain.Product;
+import lby.project.jpaboard.dto.OrderDto;
 import lby.project.jpaboard.dto.ProductDto;
 import lby.project.jpaboard.form.OrderForm;
 import lby.project.jpaboard.service.MemberService;
 import lby.project.jpaboard.service.OrderService;
 import lby.project.jpaboard.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequestMapping("/order")
 @RequiredArgsConstructor
@@ -41,5 +44,26 @@ public class OrderController {
         return "order/orderReg";
     }
 
+    @PostMapping("/orderReg")
+    public String orderReg(@RequestParam("memberId") Long memberId,
+                           @RequestParam("itemId") Long itemId,
+                           @RequestParam("count") int count) {
 
+        orderService.regOrder(memberId, itemId, count);
+
+        return "order/OrderViewYn";
+    }
+
+    @GetMapping("/orderList")
+    public String orderList(Model model) {
+        final List<Order> orderList = orderService.findAll();
+        model.addAttribute("orderList", orderList);
+        return "order/orderList";
+    }
+
+    @PostMapping("/{id}/cancel")
+    public String orderCancel(@PathVariable("id") Long id) {
+        orderService.cancelOrder(id);
+        return "redirect:/product/productList";
+    }
 }

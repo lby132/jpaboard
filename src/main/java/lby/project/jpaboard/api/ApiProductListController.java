@@ -22,7 +22,7 @@ public class ApiProductListController {
     @Autowired
     private final ProductService productService;
 
-    @GetMapping("/getProductList")
+   // @GetMapping("/getProductList")
     public Map<String, Object> getProducts() {
         final List<ProductDto> productList = productService.getProductList();
         Map<String, Object> result = new HashMap<>();

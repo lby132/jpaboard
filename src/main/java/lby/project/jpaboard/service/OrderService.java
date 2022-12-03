@@ -58,8 +58,17 @@ public class OrderService {
         orderRepository.save(order);
 
         return order.getId();
-
     }
 
+    public List<Order> findAll() {
+        return orderRepository.findAll();
+    }
+
+    @Transactional
+    public void cancelOrder(Long orderId) {
+        System.out.println("orderId = " + orderId);
+        final Order order = orderRepository.findOrder(orderId);
+        order.cancel();
+    }
 
 }
