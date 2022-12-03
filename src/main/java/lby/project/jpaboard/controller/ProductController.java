@@ -7,9 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -47,8 +45,35 @@ public class ProductController {
         return "product/proChooseView";
     }
 
-/*    @GetMapping("/productList")
-    public String productList() {
-        return "product/productList";
-    }*/
+    @GetMapping("/{id}/edit")
+    public String edit(@PathVariable("id") Long id, Model model) {
+        final Product item = productService.findOne(id);
+
+        final ProductForm product = ProductForm.builder()
+                .productId(item.getId())
+                .productName(item.getProductName())
+                .productCnt(item.getProductCnt())
+                .price(item.getPrice())
+                .build();
+
+        model.addAttribute("form", product);
+
+        return "product/updateProductForm";
+    }
+
+    @PostMapping("/{id}/edit")
+    public String editSave(@PathVariable("id") Long prodId, @ModelAttribute("form") ProductForm form) {
+
+        productService.updateProduct(prodId, form.getProductName(), form.getProductCnt(), form.getPrice());
+
+        return "redirect:/product/productList";
+    }
+
+    @GetMapping("/{id}/delete")
+    public String delete(@PathVariable("id") Long prodId) {
+
+        productService.deleteProduct(prodId);
+
+        return "redirect:/product/productList";
+    }
 }

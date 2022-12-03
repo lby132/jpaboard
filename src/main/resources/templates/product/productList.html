@@ -5,15 +5,18 @@
 <br>
 <h3>상품목록</h3>
 <br>
-<div style="float: right;">
+<div style="padding: 5px 1px 2px 3px; float: right;">
     <button type="button" class="btn btn-primary" onclick="orderReg()">주문하기에 등록</button>
+</div>
+<div style="padding: 5px 1px 2px 3px; float: right;">
+    <a href="#" th:href="@{/product/productReg}" class="btn btn-primary" role="button">상품등록</a>
 </div>
     <table border="1" class="table table-striped" id="itemList">
         <colgroup>
-            <col width="50">
             <col width="100">
-            <col width="300">
-            <col width="300">
+            <col width="200">
+            <col width="200">
+            <col width="200">
         </colgroup>
         <thead>
         <tr>
@@ -21,21 +24,34 @@
             <th>상품이름</th>
             <th>상품개수</th>
             <th>상품가격</th>
+            <th>상품수정/삭제</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody th:if="${!#lists.isEmpty(productList)}">
         <tr th:each="item : ${productList}">
             <td th:text="${item.id}"></td>
             <td th:text="${item.productName}"></td>
             <td th:text="${item.price}"></td>
             <td th:text="${item.productCnt}"></td>
+            <td>
+                <a href="#" th:href="@{/product/{id}/edit (id=${item.id})}" class="btn btn-primary" role="button">수정</a>
+                <a href="#" th:href="@{/product/{id}/delete (id=${item.id})}" class="btn btn-danger" role="button">삭제</a>
+            </td>
         </tr>
         </tbody>
+        <tbody th:unless="${!#lists.isEmpty(productList)}">
+        <tr>
+            <td colspan="5">
+                <div style="text-align : center;">상품을 등록해주세요.</div>
+            </td>
+        </tr>
+        </tbody>
+
     </table>
 </body>
 <script th:inline="javascript">
    function orderReg(id) {
-      location.href = "/order/orderReg";
+     location.href = "/order/orderReg";
    }
 </script>
 </html>

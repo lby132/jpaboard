@@ -4,6 +4,7 @@ import lby.project.jpaboard.exception.NotEnoughStockException;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -34,6 +35,7 @@ public class Product {
         this.price = price;
     }
 
+
     public void addStock(int quantity) {
         this.productCnt += quantity;
         System.out.println("this.productCnt = " + this.productCnt);
@@ -42,10 +44,17 @@ public class Product {
     public void removeStock(int quantity) {
         int result = productCnt - quantity;
         if (result < 0) {
-            throw new NotEnoughStockException("더많은 재고가 필요합니다.");
+            throw new NotEnoughStockException("수량을 초과하였습니다.");
         }
 
         this.productCnt = result;
+    }
+
+    //상품 변경
+    public void changeProduct(String name, int cnt, int price) {
+        this.productName = name;
+        this.price = price;
+        this.productCnt = cnt;
     }
 
 }

@@ -10,10 +10,12 @@ import lby.project.jpaboard.repository.OrderRepository;
 import lby.project.jpaboard.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.annotations.NotFound;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -46,18 +48,21 @@ public class OrderService {
         return modelMapper.map(orders, OrderDto.class);
     }
 
-    @Transactional
     public Long regOrder(Long productId, Long memberId, int count) {
-        final Product product = productRepository.findById(productId).orElseThrow();
-        final Member member = memberRepository.findById(memberId).orElseThrow();
+        final boolean productYn = productRepository.findById(productId).isPresent();
+        final boolean memberYn = memberRepository.findById(memberId).isPresent();
+        if (memberYn || productYn) {
+            final Product product = productRepository.findById(productId).get();
+            final OrderItem orderItem = OrderItem.createOrderItem(product, product.getPrice(), count);
+            final Member member = memberRepository.findById(memberId).get();
+            final Order order = Order.createOrder(member, orderItem);
 
-        final OrderItem orderItem = OrderItem.createOrderItem(product, product.getPrice(), count);
+            orderRepository.save(order);
 
-        final Order order = Order.createOrder(member, orderItem);
-
-        orderRepository.save(order);
-
-        return order.getId();
+            return order.getId();
+        } else {
+            return null;
+        }
     }
 
     public List<Order> findAll() {
@@ -66,7 +71,6 @@ public class OrderService {
 
     @Transactional
     public void cancelOrder(Long orderId) {
-        System.out.println("orderId = " + orderId);
         final Order order = orderRepository.findOrder(orderId);
         order.cancel();
     }
