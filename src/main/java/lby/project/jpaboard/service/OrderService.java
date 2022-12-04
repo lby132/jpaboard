@@ -1,5 +1,6 @@
 package lby.project.jpaboard.service;
 
+import lby.project.jpaboard.controller.ExceptionController;
 import lby.project.jpaboard.domain.Member;
 import lby.project.jpaboard.domain.Order;
 import lby.project.jpaboard.domain.OrderItem;
@@ -15,6 +16,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDateTime;
@@ -48,7 +50,7 @@ public class OrderService {
         return modelMapper.map(orders, OrderDto.class);
     }
 
-    public Long regOrder(Long productId, Long memberId, int count) {
+    public Long regOrder(Long memberId, Long productId, int count) {
         final boolean productYn = productRepository.findById(productId).isPresent();
         final boolean memberYn = memberRepository.findById(memberId).isPresent();
         if (memberYn || productYn) {

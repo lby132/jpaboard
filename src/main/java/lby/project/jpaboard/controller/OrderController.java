@@ -40,7 +40,6 @@ public class OrderController {
 
         model.addAttribute("members", members);
         model.addAttribute("items", items);
-        model.addAttribute("cnt", items.get(0).getProductCnt());
 
         return "order/orderReg";
     }

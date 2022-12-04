@@ -24,11 +24,40 @@
         </div>
         <div class="form-group">
             <label for="count">주문수량</label>
-            <input type="number" name="count" class="form-control" th:text="'주문 수량은 '+${cnt}+'개 이하로 주문해주세요.'" id="count">
+            <input type="number" id="count" name="count" class="form-control" placeholder="주문 수량을 입력하세요">
+            <div id="cntInfo"></div>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
     <br/>
 </div>
 </body>
+<script th:inline="javascript">
+/*<![CDATA[*/
+$(document).ready(function(){
+
+    $('#item').on('change', function(){
+        const itemId = this.value;
+        const api_url = "/apiProduct/getProductCnt/" + itemId;
+
+        $.ajax({
+            url: api_url,
+            type: "get"
+        }).done(function (data) {
+
+            const result = data.result;
+            const cnt = data.cnt;
+
+            if(result === "OK") {
+                let message =  "이 상품은 "+cnt+"개 까지 주문 가능합니다.";
+                $("#cntInfo").text(message);
+            }
+        }).fail(function(jqXHR) {
+          console.log(jqXHR);
+        });
+    });
+
+});
+/*]]>*/
+</script>
 </html>

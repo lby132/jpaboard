@@ -35,10 +35,8 @@ public class Product {
         this.price = price;
     }
 
-
     public void addStock(int quantity) {
         this.productCnt += quantity;
-        System.out.println("this.productCnt = " + this.productCnt);
     }
 
     public void removeStock(int quantity) {

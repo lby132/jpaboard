@@ -22,6 +22,7 @@ public class ProductController {
     @GetMapping("/productList")
     public String getProducts(Model model) {
         final List<Product> productList = productService.findItems();
+
         model.addAttribute("productList", productList);
         return "product/productList";
     }
@@ -57,6 +58,7 @@ public class ProductController {
                 .build();
 
         model.addAttribute("form", product);
+        model.addAttribute("cnt", item.getProductCnt());
 
         return "product/updateProductForm";
     }
@@ -71,7 +73,7 @@ public class ProductController {
 
     @GetMapping("/{id}/delete")
     public String delete(@PathVariable("id") Long prodId) {
-
+        System.out.println("prodId = " + prodId);
         productService.deleteProduct(prodId);
 
         return "redirect:/product/productList";

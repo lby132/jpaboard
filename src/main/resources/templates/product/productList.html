@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
-<body onload="initItemList()">
+<body>
 <br>
 <h3>상품목록</h3>
 <br>
@@ -31,8 +31,8 @@
         <tr th:each="item : ${productList}">
             <td th:text="${item.id}"></td>
             <td th:text="${item.productName}"></td>
-            <td th:text="${item.price}"></td>
             <td th:text="${item.productCnt}"></td>
+            <td th:text="${item.price}"></td>
             <td>
                 <a href="#" th:href="@{/product/{id}/edit (id=${item.id})}" class="btn btn-primary" role="button">수정</a>
                 <a href="#" th:href="@{/product/{id}/delete (id=${item.id})}" class="btn btn-danger" role="button">삭제</a>

@@ -1,5 +1,6 @@
 package lby.project.jpaboard.api;
 
+import lby.project.jpaboard.domain.Product;
 import lby.project.jpaboard.dto.ProductDto;
 import lby.project.jpaboard.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/product")
+@RequestMapping("/apiProduct")
 public class ApiProductListController {
 
     @Autowired
@@ -36,14 +37,29 @@ public class ApiProductListController {
         return result;
     }
 
-    @PostMapping("/saveProduct")
+    //@PostMapping("/saveProduct")
     public void saveProduct(@RequestBody ProductDto productDto) {
         productService.saveProduct(productDto);
     }
 
-    @GetMapping("/getProductOne/{productId}")
+   // @GetMapping("/getProductOne/{productId}")
     public ProductDto getProductOne(@PathVariable("productId") Long productId) {
          return productService.getProductOne(productId);
     }
 
+    @GetMapping("/getProductCnt/{itemId}")
+    public Map<String, Object> getProductCnt(@PathVariable("itemId") Long itemId) {
+        Map<String, Object> result = new HashMap<>();
+        final Product product = productService.findOne(itemId);
+        final int productCnt = product.getProductCnt();
+
+        if (productCnt > 0) {
+            result.put("result", "OK");
+            result.put("cnt", productCnt);
+        } else {
+            result.put("cnt", "");
+        }
+
+        return result;
+    }
 }

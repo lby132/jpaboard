@@ -43,6 +43,7 @@
                     html += '<td>' + prodList[i].productName + '</td>';
                     html += '<td>' + prodList[i].productCnt + '</td>';
                     html += '<td>' + prodList[i].price + '</td>';
+                    html += '<td><a href="#" th:onclick="order(\''+prodList[i].productId+'\')">주문하기에 등록</a</td>'
                     html += '</tr>';
                     html += '</br>';
             }
@@ -57,8 +58,8 @@
       });
    }
 
-   function orderReg(id) {
-      location.href = "/order/orderReg";
+   function order(id) {
+
    }
 
 </script>
