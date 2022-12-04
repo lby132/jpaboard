@@ -16,13 +16,13 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/order")
+//@RequestMapping("/order")
 public class ApiOrderStatusController {
 
     @Autowired
     private final OrderService orderService;
 
-    @GetMapping("/getOrderList")
+    //@GetMapping("/getOrderList")
     public Map<String, Object> getOrders() {
         List<OrderDto> orderList = orderService.getOrderList();
 
@@ -38,7 +38,7 @@ public class ApiOrderStatusController {
         return result;
     }
 
-    @GetMapping("/getOrderList/{orderNum}")
+    //@GetMapping("/getOrderList/{orderNum}")
     public Map<String, Object> getOrders(@PathVariable("orderNum") Long orderNum) {
         final OrderDto orderItem = orderService.getOrderItem(orderNum);
 
@@ -53,7 +53,7 @@ public class ApiOrderStatusController {
         return result;
     }
 
-    @PostMapping("/regOrder")
+    //@PostMapping("/regOrder")
     public void regOrder(@RequestBody OrderInfo orderInfo) {
         orderService.regOrder(orderInfo.getProductId(), orderInfo.getMemberId(), orderInfo.getCount());
     }

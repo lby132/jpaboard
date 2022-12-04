@@ -53,7 +53,6 @@ public class ProductService {
     }
 
     public void deleteProduct(Long id) {
-        System.out.println("id = " + id);
         productRepository.deleteById(id);
     }
 

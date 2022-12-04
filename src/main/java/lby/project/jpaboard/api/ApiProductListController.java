@@ -47,7 +47,7 @@ public class ApiProductListController {
          return productService.getProductOne(productId);
     }
 
-    @GetMapping("/getProductCnt/{itemId}")
+    @GetMapping("/getProductCnt/{itemId}")  //사용중
     public Map<String, Object> getProductCnt(@PathVariable("itemId") Long itemId) {
         Map<String, Object> result = new HashMap<>();
         final Product product = productService.findOne(itemId);
