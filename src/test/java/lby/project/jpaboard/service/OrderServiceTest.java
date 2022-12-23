@@ -5,34 +5,24 @@ import lby.project.jpaboard.domain.Address;
 import lby.project.jpaboard.domain.Member;
 import lby.project.jpaboard.domain.Order;
 import lby.project.jpaboard.domain.Product;
-import lby.project.jpaboard.dto.OrderDto;
 import lby.project.jpaboard.repository.MemberRepository;
 import lby.project.jpaboard.repository.OrderRepository;
 import lby.project.jpaboard.repository.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.Entity;
 import javax.persistence.EntityManager;
-import java.time.LocalDateTime;
-import java.util.List;
 
-import static lby.project.jpaboard.domain.OrderStatus.CANCEL;
 import static lby.project.jpaboard.domain.OrderStatus.ORDER;
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
 @SpringBootTest

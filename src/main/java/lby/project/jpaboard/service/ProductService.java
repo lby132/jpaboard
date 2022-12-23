@@ -2,7 +2,6 @@ package lby.project.jpaboard.service;
 
 import lby.project.jpaboard.dto.ProductDto;
 import lby.project.jpaboard.domain.Product;
-import lby.project.jpaboard.form.ProductForm;
 import lby.project.jpaboard.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
